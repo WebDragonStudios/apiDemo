@@ -1,0 +1,15 @@
+﻿body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+ol{
+    padding-left: 0px;
+}
+
+li{
+    list-style-type: none;
+}
+
+input[type="text"]{
+    border-radius: 5px;
+}

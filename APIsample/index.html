@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/site.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/site.css ">
+
+    <title>Mindex API Demo</title>
+</head>
+<body id="shortDemo">
+    <div class="container">
+        <h1 class="text-center">Quick API Demo</h1>
+        <div class="row">
+            <div class="col-md-6 center-block">
+                <h2>All Teams</h2>
+                <ol id="teams" />
+            </div>
+            <div class="col-md-6 center-block">
+                <h2>Search by ID from the left</h2>
+                <p>Selecting the team will call the API and return the value selected, if it exsists.</p>
+                <input type="text" id="teamId" />
+                <input type="button" value="Search" onclick="findTeam();" /><br />
+                <p id="team" />
+            </div>
+        </div>
+        
+        <div>
+            <h2>Description</h2>
+            <p>
+                This is a short demo on making an API call. Normally it would be pulling data from a database, but 
+                for this demonstration it'll be pulling from a list inside the TeamController. You are able to select
+                a team buy its ID number on the left, or you can follow the URL structure <strong>"/api/team/{team number here}"</strong>.
+                For example, <strong>/api/team/2</strong> will bring up the information on the New York Mets.
+            </p>
+        </div>
+
+        <div>
+            <h2>Some Prior Work</h2>
+            <p><strong><a href="https://www.urmc.rochester.edu/people/" target="_blank"> Find a Physician App</a></strong>: This Application was the one I mentioned during the interview. This used Angular2.</p>
+            <p>
+                <strong><a href="http://www.draftsharks.com/" target="_blank"> Draft Sharks</a></strong>: This was one of my favorite projects to work on, being a huge football fan for one, and it was
+                very fun to make. This site won an award for it's design.
+            </p>
+        </div> 
+
+    </div>
+  
+
+    <script>
+        var uri = 'api/team';
+        function formatItem(detail) {
+            return detail.Id + ': The ' + detail.Name + ' are a ' + detail.Sport + " team that plays at " + detail.Stadium; 
+        }
+
+        function findTeam() {
+            var id = $('#teamId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#team').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#team').text('Sorry, the team you selected coudld not be found.');
+                });
+        }
+    </script>
+</body>
+</html>
